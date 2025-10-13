@@ -1,3 +1,88 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero-background",
+      "description": "Abstract geometric pattern",
+      "imageUrl": "https://picsum.photos/seed/1/1200/800",
+      "imageHint": "abstract geometric"
+    },
+    {
+      "id": "login-graphic",
+      "description": "Modern office interior",
+      "imageUrl": "https://picsum.photos/seed/2/800/1200",
+      "imageHint": "modern office"
+    },
+    {
+      "id": "feature-assessment",
+      "description": "Person taking notes at a desk",
+      "imageUrl": "https://picsum.photos/seed/3/600/400",
+      "imageHint": "person writing"
+    },
+    {
+      "id": "feature-recommendation",
+      "description": "A signpost with multiple directions",
+      "imageUrl": "https://picsum.photos/seed/4/600/400",
+      "imageHint": "signpost directions"
+    },
+    {
+      "id": "feature-roadmap",
+      "description": "A winding road through a landscape",
+      "imageUrl": "https://picsum.photos/seed/5/600/400",
+      "imageHint": "winding road"
+    },
+    {
+      "id": "feature-tracking",
+      "description": "A dashboard with charts and graphs",
+      "imageUrl": "https://picsum.photos/seed/6/600/400",
+      "imageHint": "dashboard charts"
+    },
+    {
+      "id": "gallery-1",
+      "description": "Students collaborating in a modern classroom",
+      "imageUrl": "https://picsum.photos/seed/101/600/400",
+      "imageHint": "students collaborating"
+    },
+    {
+      "id": "gallery-2",
+      "description": "Close-up of a circuit board",
+      "imageUrl": "https://picsum.photos/seed/102/600/400",
+      "imageHint": "circuit board"
+    },
+    {
+      "id": "gallery-3",
+      "description": "Engineer working on a laptop with code",
+      "imageUrl": "https://picsum.photos/seed/103/600/400",
+      "imageHint": "engineer coding"
+    },
+    {
+      "id": "gallery-4",
+      "description": "A person sketching designs in a notebook",
+      "imageUrl": "https://picsum.photos/seed/104/600/400",
+      "imageHint": "sketching designs"
+    },
+    {
+      "id": "gallery-5",
+      "description": "Robotic arm in a factory",
+      "imageUrl": "https://picsum.photos/seed/105/600/400",
+      "imageHint": "robotic arm"
+    },
+    {
+      "id": "gallery-6",
+      "description": "Team of professionals in a meeting",
+      "imageUrl": "https://picsum.photos/seed/106/600/400",
+      "imageHint": "team meeting"
+    },
+    {
+      "id": "gallery-7",
+      "description": "A person looking at a city skyline",
+      "imageUrl": "https://picsum.photos/seed/107/600/400",
+      "imageHint": "city skyline"
+    },
+    {
+      "id": "gallery-8",
+      "description": "Data visualization on a computer screen",
+      "imageUrl": "https://picsum.photos/seed/108/600/400",
+      "imageHint": "data visualization"
+    }
+  ]
 }
