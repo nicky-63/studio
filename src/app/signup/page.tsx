@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -13,6 +16,13 @@ import AuthLayout from "../auth/layout";
 import { Github } from "lucide-react";
 
 export default function SignupPage() {
+  const router = useRouter();
+
+  const handleSignup = (e: React.FormEvent) => {
+    e.preventDefault();
+    router.push("/dashboard");
+  };
+
   return (
     <AuthLayout>
       <Card className="mx-auto w-full max-w-sm border-0 shadow-none sm:border sm:shadow-sm">
@@ -23,7 +33,7 @@ export default function SignupPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-4">
+          <form onSubmit={handleSignup} className="grid gap-4">
             <div className="grid grid-cols-2 gap-4">
               <div className="grid gap-2">
                 <Label htmlFor="first-name">First name</Label>
@@ -54,7 +64,7 @@ export default function SignupPage() {
               <Github className="mr-2 h-4 w-4" />
               Sign up with Google
             </Button>
-          </div>
+          </form>
           <div className="mt-4 text-center text-sm">
             Already have an account?{" "}
             <Link href="/login" className="underline">
