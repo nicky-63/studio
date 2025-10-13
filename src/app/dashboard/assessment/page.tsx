@@ -57,6 +57,7 @@ export default function AssessmentPage() {
         matchCareerPaths(assessmentData),
       ]);
 
+      localStorage.setItem('assessmentData', JSON.stringify(assessmentData));
       localStorage.setItem('assessmentAnalysis', JSON.stringify(analysis));
       localStorage.setItem('careerRecommendations', JSON.stringify(matches.careerPaths));
 

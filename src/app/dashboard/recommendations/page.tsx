@@ -94,7 +94,7 @@ export default function RecommendationsPage() {
               </CardContent>
               <CardFooter>
                 <Button asChild className="w-full">
-                  <Link href="/dashboard/roadmap">
+                  <Link href={`/dashboard/roadmap?career=${encodeURIComponent(career)}`}>
                     View Roadmap <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
