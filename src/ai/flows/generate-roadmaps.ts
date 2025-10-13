@@ -19,10 +19,26 @@ const GenerateRoadmapInputSchema = z.object({
 });
 export type GenerateRoadmapInput = z.infer<typeof GenerateRoadmapInputSchema>;
 
+const RoadmapSectionSchema = z.object({
+  title: z
+    .string()
+    .describe(
+      "The title of the roadmap section (e.g., 'Phase 1: Foundational Skills', 'Key Projects')."
+    ),
+  items: z
+    .array(z.string())
+    .describe('A list of items or steps within this section.'),
+});
+
 const GenerateRoadmapOutputSchema = z.object({
-  roadmap: z.string().describe('A personalized roadmap including courses, certifications, side projects, and internships.'),
+  roadmap: z
+    .array(RoadmapSectionSchema)
+    .describe(
+      'A personalized, step-by-step roadmap with distinct sections like "Phase 1", "Projects", "Certifications", etc.'
+    ),
 });
 export type GenerateRoadmapOutput = z.infer<typeof GenerateRoadmapOutputSchema>;
+
 
 export async function generateRoadmap(input: GenerateRoadmapInput): Promise<GenerateRoadmapOutput> {
   return generateRoadmapFlow(input);
@@ -32,16 +48,16 @@ const prompt = ai.definePrompt({
   name: 'generateRoadmapPrompt',
   input: {schema: GenerateRoadmapInputSchema},
   output: {schema: GenerateRoadmapOutputSchema},
-  prompt: `You are a career advisor for engineering students.
+  prompt: `You are a career advisor for engineering students. Your task is to generate a detailed, step-by-step, and efficient roadmap.
 
-  Based on the student's skills, interests and the skills required for their desired career path, generate a personalized roadmap for the student.
+  Based on the student's skills, interests, and the skills required for their desired career path, generate a personalized roadmap. The roadmap should be broken down into logical sections, such as phases (e.g., "Phase 1: Foundational Skills"), key project ideas, and recommended certifications.
 
   Career Path: {{{careerPath}}}
-  Student Skills: {{{studentSkills}}}
-  Required Skills: {{{requiredSkills}}}
-  Interests: {{{interests}}}
+  Student's Current Skills & Interests: {{{studentSkills}}}, {{{interests}}}
+  Skills Required for Career Path: {{{requiredSkills}}}
 
-  Roadmap:`,
+  Generate the roadmap now.
+  `,
 });
 
 const generateRoadmapFlow = ai.defineFlow(
