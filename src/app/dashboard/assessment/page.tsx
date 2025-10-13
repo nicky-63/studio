@@ -51,13 +51,14 @@ export default function AssessmentPage() {
         preferredIndustries,
         softSkills: softSkills || 'Communication, Teamwork, Problem Solving', // Default value if not collected
       };
-
-      // In a real app, you would likely store the results and not just log them.
-      // We are calling them here to simulate the analysis.
-      await Promise.all([
+      
+      const [analysis, matches] = await Promise.all([
         analyzeSkills(assessmentData),
         matchCareerPaths(assessmentData),
       ]);
+
+      localStorage.setItem('assessmentAnalysis', JSON.stringify(analysis));
+      localStorage.setItem('careerRecommendations', JSON.stringify(matches.careerPaths));
 
       toast({
         title: "Assessment Submitted!",
