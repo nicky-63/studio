@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useEffect, useState, Suspense } from 'react';
@@ -10,13 +11,12 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
-// Define the type for a roadmap section based on the updated Zod schema
 type RoadmapSection = {
   title: string;
   items: string[];
 };
 
-function RoadmapContent() {
+function RoadmapGenerator() {
   const searchParams = useSearchParams();
   const career = searchParams.get('career');
   const [roadmap, setRoadmap] = useState<RoadmapSection[]>([]);
@@ -88,51 +88,48 @@ function RoadmapContent() {
   }
 
   return (
-    <div className="space-y-8">
-      {roadmap.map((section, index) => (
-        <Card key={index}>
-          <CardHeader>
-            <CardTitle className="text-xl flex items-center gap-2 font-headline">
-              <Map className="h-5 w-5 text-primary" />
-              {section.title}
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-3">
-              {section.items.map((item, itemIndex) => (
-                <li key={itemIndex} className="flex items-start gap-3">
-                  <CheckCircle className="h-5 w-5 mt-1 text-green-500 flex-shrink-0" />
-                  <span className="text-muted-foreground">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </CardContent>
-        </Card>
-      ))}
+    <div className="space-y-6">
+      <div className="flex items-center gap-4">
+        <BackButton />
+        <div className="space-y-1">
+          <h1 className="text-2xl font-bold tracking-tight font-headline">
+            Personalized Roadmap{career ? `: ${career}` : ''}
+          </h1>
+          <p className="text-muted-foreground">
+            Your step-by-step guide to achieving your career goals.
+          </p>
+        </div>
+      </div>
+      <div className="space-y-8">
+        {roadmap.map((section, index) => (
+          <Card key={index}>
+            <CardHeader>
+              <CardTitle className="text-xl flex items-center gap-2 font-headline">
+                <Map className="h-5 w-5 text-primary" />
+                {section.title}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ul className="space-y-3">
+                {section.items.map((item, itemIndex) => (
+                  <li key={itemIndex} className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 mt-1 text-green-500 flex-shrink-0" />
+                    <span className="text-muted-foreground">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
     </div>
   );
 }
 
 export default function RoadmapPage() {
-  const searchParams = useSearchParams();
-  const career = searchParams.get('career');
-
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <div className="space-y-6">
-        <div className="flex items-center gap-4">
-          <BackButton />
-          <div className="space-y-1">
-            <h1 className="text-2xl font-bold tracking-tight font-headline">
-              Personalized Roadmap{career ? `: ${career}` : ''}
-            </h1>
-            <p className="text-muted-foreground">
-              Your step-by-step guide to achieving your career goals.
-            </p>
-          </div>
-        </div>
-        <RoadmapContent />
-      </div>
+    <Suspense fallback={<div className="flex justify-center py-20"><Loader2 className="h-12 w-12 animate-spin text-primary" /></div>}>
+      <RoadmapGenerator />
     </Suspense>
   );
 }
