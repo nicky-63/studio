@@ -31,11 +31,16 @@ export default function RecommendationsPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const storedRecs = localStorage.getItem("careerRecommendations");
-    if (storedRecs) {
-      setRecommendations(JSON.parse(storedRecs));
+    try {
+      const storedRecs = localStorage.getItem("careerRecommendations");
+      if (storedRecs) {
+        setRecommendations(JSON.parse(storedRecs));
+      }
+    } catch (error) {
+      console.error("Failed to parse recommendations from localStorage", error);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   }, []);
 
   if (loading) {
