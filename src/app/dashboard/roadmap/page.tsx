@@ -4,17 +4,14 @@
 import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { BackButton } from '@/components/shared/BackButton';
-import { generateRoadmap } from '@/ai/flows/generate-roadmaps';
+import { generateRoadmap, type GenerateRoadmapOutput } from '@/ai/flows/generate-roadmaps';
 import { Loader2, Map, CheckCircle } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
-type RoadmapSection = {
-  title: string;
-  items: string[];
-};
+type RoadmapSection = GenerateRoadmapOutput['roadmap'][number];
 
 function RoadmapGenerator() {
   const searchParams = useSearchParams();
@@ -31,16 +28,25 @@ function RoadmapGenerator() {
     }
 
     const generate = async () => {
-      const assessmentData = JSON.parse(localStorage.getItem('assessmentData') || '{}');
-      const analysis = JSON.parse(localStorage.getItem('assessmentAnalysis') || '{}');
-
-      if (!assessmentData.interests || !analysis.skillAnalysis) {
-        setError('Assessment data not found. Please complete the assessment first.');
-        setLoading(false);
-        return;
-      }
-
       try {
+        const assessmentDataStr = localStorage.getItem('assessmentData');
+        const analysisStr = localStorage.getItem('assessmentAnalysis');
+
+        if (!assessmentDataStr || !analysisStr) {
+          setError('Assessment data not found. Please complete the assessment first.');
+          setLoading(false);
+          return;
+        }
+
+        const assessmentData = JSON.parse(assessmentDataStr);
+        const analysis = JSON.parse(analysisStr);
+
+        if (!assessmentData.interests || !analysis.skillAnalysis) {
+          setError('Incomplete assessment data. Please complete the assessment first.');
+          setLoading(false);
+          return;
+        }
+
         const input = {
           careerPath: career,
           studentSkills: analysis.skillAnalysis,
